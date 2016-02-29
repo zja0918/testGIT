@@ -1,0 +1,55 @@
+group 'myUtils'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'war'
+
+//指定JDK版本
+sourceCompatibility=1.6
+
+repositories {
+    maven {url 'http://yfb.wangdj.cn:8088/nexus/content/groups/public/'}
+    mavenCentral()
+}
+
+dependencies {
+    providedCompile 'javax:javaee-api:6.0'
+    runtime 'javax.servlet:jstl:1.2'
+    compile 'mysql:mysql-connector-java:5.1.20'
+    compile 'org.lazyluke:log4jdbc-remix:0.2.7'
+    compile 'ch.qos.logback:logback-classic:1.1.3'
+    compile 'org.springframework:spring-webmvc:4.2.2.RELEASE'
+    compile 'org.springframework:spring-jdbc:4.2.3.RELEASE'
+    compile 'org.sitemesh:sitemesh:3.0.0'
+    compile 'org.apache.shiro:shiro-web:1.2.3'
+    compile 'org.apache.shiro:shiro-spring:1.2.0'
+    compile 'com.alibaba:druid:1.0.16'
+    compile 'commons-dbcp:commons-dbcp:1.4'
+    compile 'commons-dbutils:commons-dbutils:1.6'
+    compile 'org.springframework.data:spring-data-commons-core:1.2.1.RELEASE'
+    compile 'commons-fileupload:commons-fileupload:1.3.1'
+    compile 'org.apache.commons:commons-lang3:3.4'
+    compile 'com.aliyun.openservices:aliyun-openservices:1.2.2'
+    compile 'com.googlecode.json-simple:json-simple:1.1.1'
+    compile 'com.alibaba:fastjson:1.1.15'
+    compile 'com.google.protobuf:protobuf-java:3.0.0-beta-2'
+    compile 'io.grpc:grpc-all:0.13.1'
+}
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+sourceSets {
+    main {
+        java {
+            srcDirs 'src/main/java'
+        }
+        resources {
+            srcDir 'resource'
+        }
+    }
+}
+//创建路径
+task createDirs() {
+    sourceSets*.java.srcDirs*.each { it.mkdirs() }
+    sourceSets*.resources.srcDirs*.each { it.mkdirs() }
+}
